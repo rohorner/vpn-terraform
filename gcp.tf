@@ -1,12 +1,11 @@
-# An example of how to connect two GCE networks with a VPN
+# Set up GCP environment definitions
 provider "google" {
   account_file = "${file("~/gce/account.json")}"
   project      = "${var.gcp_project}"
   region       = "${var.gcp_region}"
 }
 
-# Create the two networks we want to join. They must have seperate, internal
-# ranges.
+# Create the GCP network that we want to join
 resource "google_compute_network" "tfnetwork" {
   name       = "tfnetwork"
 }
@@ -17,7 +16,7 @@ resource "google_compute_subnetwork" "tf-subnet" {
   network = "${google_compute_network.tfnetwork.self_link}"
 }
 
-# Create and attach a VPN gateway to the network.
+# Create and attach a VPN gateway to the network
 resource "google_compute_vpn_gateway" "gcp-vpn-gateway" {
   name    = "gcp-vpn-gateway"
   network = "${google_compute_network.tfnetwork.self_link}"
@@ -25,14 +24,13 @@ resource "google_compute_vpn_gateway" "gcp-vpn-gateway" {
 }
 
 
-# Create an outward facing static IP for each VPN that will be used by the
-# other VPN to connect.
+# Create an external static IP that will be used as the VPN gateway endpoint
 resource "google_compute_address" "vpn-static-ip1" {
   name   = "vpn-static-ip1"
   region = "${var.gcp_region}"
 }
 
-# Forward IPSec traffic coming into our static IP to our VPN gateway.
+# Forward three forwarding rules to direct IPSec traffic coming to our static IP toward our VPN gateway
 resource "google_compute_forwarding_rule" "fr_esp" {
   name        = "fr-esp"
   region      = "${var.gcp_region}"
@@ -41,7 +39,6 @@ resource "google_compute_forwarding_rule" "fr_esp" {
   target      = "${google_compute_vpn_gateway.gcp-vpn-gateway.self_link}"
 }
 
-# The following two forwarding rules are used as a part of the IPSec protocol
 resource "google_compute_forwarding_rule" "fr_udp500" {
   name        = "fr-udp500"
   region      = "${var.gcp_region}"
@@ -60,7 +57,7 @@ resource "google_compute_forwarding_rule" "fr_udp4500" {
   target      = "${google_compute_vpn_gateway.gcp-vpn-gateway.self_link}"
 }
 
-# Define the VPN tunnel toward AWS. Include the local address range that should be sent toward the tunnel.
+# Define the VPN tunnel to AWS. Include the local address range that should be sent toward the tunnel.
 resource "google_compute_vpn_tunnel" "tunnel1" {
   name               = "tunnel1"
   region             = "${var.gcp_region}"
@@ -77,7 +74,7 @@ resource "google_compute_vpn_tunnel" "tunnel1" {
   ike_version = 1
 }
 
-# Send traffic destined for the AWS subnet into the tunnel
+# Route traffic destined for the AWS subnet into the tunnel
 resource "google_compute_route" "route-to-aws" {
   name       = "route-to-aws"
   network    = "${google_compute_network.tfnetwork.self_link}"
