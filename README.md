@@ -29,27 +29,10 @@ $ export AWS_SECRET_KEY=[your 40-character AWS secret key]
 
 ## Building the AWS to GCP VPN connection
 
-Clone the repo to your server.
+Clone the repo to your server and execute terraform.
 
 ```
 $ git clone git@github.com:trace3-cts/vpn-terraform.git
 $ cd vpn-terraform
-```
-Execute Terraform
-
-```
 $ terraform apply
-var.key_name
-  Desired name of the key pair
-
-  Enter a value: terraform
-
-var.public_key_path
-  Path to the SSH public key to be used for authentication.
-  Ensure this keypair is added to your local SSH agent so provisioners can
-  connect.
-
-  Example: ~/.ssh/terraform.pub
-
-  Enter a value: ~/.ssh/terraform.pub
 ```
