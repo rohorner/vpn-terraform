@@ -1,10 +1,3 @@
-# Set up GCP environment definitions
-provider "google" {
-  credentials = "${file("~/gce/account.json")}"
-  project      = "${var.gcp_project}"
-  region       = "${var.gcp_region}"
-}
-
 # Create the GCP network that we want to join
 resource "google_compute_network" "tfnetwork" {
   name       = "tfnetwork"

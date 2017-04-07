@@ -1,7 +1,3 @@
-provider "aws" {
-  region     = "${var.aws_region}"
-}
-
 # Build the VPC
 resource "aws_vpc" "demo-vpc" {
   cidr_block       = "10.1.0.0/16"
