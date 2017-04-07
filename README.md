@@ -7,16 +7,6 @@ Currently only the AWS-GCP VPN code is working.
 
 ## Getting Started
 
-You must have valid SSH keys in order to remotely access the test VMs in each cloud.
-
-Begin by creating a new SSH key pair. We'll call this one terraform.
-
-```
-$ ssh-keygen
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.ssh/terraform
-```
-
 ### Set up your AWS credentials
 Create environment variables for your AWS Access Key and Secret Key.
 
@@ -33,6 +23,17 @@ menu and select "Create Key". Select "JSON" as the Key Type and hit "CREATE". GC
 create the file and automatically download it to your computer.
 
 Store the downloaded file as `~/gce/account.json`.
+
+### [_future - not used right now_]
+You must have valid SSH keys in order to remotely access the test VMs in each cloud.
+
+Begin by creating a new SSH key pair. We'll call this one terraform.
+
+```
+$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.ssh/terraform
+```
 
 
 
