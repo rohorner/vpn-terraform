@@ -2,17 +2,6 @@ provider "aws" {
   region     = "${var.aws_region}"
 }
 
-variable "public_key_path" {
-  default = "~/.ssh/gcp.pub"
-}
-
-resource "aws_key_pair" "auth" {
-//  key_name   = "${var.key_name}"
-  public_key = "${file(var.public_key_path)}"
-  key_name = "tf_demo"
-//  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+Om0L8wgOxajMK9dh7zazXoLmh9z/KzinUeO4ZJOPiJFEiugU7QeEeAXKVZWZmsv1RBvQqe7N++VqE505klWjdTHvR7rh6fDHXc2P3DEMKeIti0JEpnu/f2L/3aU+/RQ2am/U+K05nfkoJWX5EC6f/c9sOGLVoO81H2qjRfoHxywn5jyW8EqkuyNH/fg9BgN2uz+TasDjNVk1YU9G19BGA0qPcJOE78by2dbzzslPYuYwN17tgxoEnsExJgTPptX7olfU1ykskp8VewqzJb2TWOX5jR3qHkx7CRuEzEJb8OcM/gElwgsLXy3y4ttA4pxJKCDpEJoVbCkw7JAdJ3Yp rhorner"
-}
-
 # Build the VPC
 resource "aws_vpc" "demo-vpc" {
   cidr_block       = "10.1.0.0/16"
