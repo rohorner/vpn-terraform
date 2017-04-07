@@ -7,14 +7,15 @@ Currently only the AWS-GCP VPN code is working.
 
 ## Getting Started
 
-### Set up your AWS credentials
-Create environment variables for your AWS Access Key and Secret Key.
+### Clone the repo
+Clone the repo to your server.
 
 ```
-$ export AWS_ACCESS_KEY_ID=[your 20-character AWS access key]
-$ export AWS_SECRET_KEY=[your 40-character AWS secret key]
+$ git clone git@github.com:trace3-cts/vpn-terraform.git
+$ cd vpn-terraform
 ```
-### Set up your GCP credentials
+
+### Set up your cloud credentials
 If you haven't already, download your GCP credentials JSON file:
 
 In the GCP Console, select the "IAM & Admin" menu item, then "Service Accounts".
@@ -22,27 +23,36 @@ To the right of the service account that you wish to use, pull down the options
 menu and select "Create Key". Select "JSON" as the Key Type and hit "CREATE". GCP will
 create the file and automatically download it to your computer.
 
-Store the downloaded file as `~/gce/account.json`.
+Using `terraform.tfvars.example`, create a `terraform.tfvars` file in the root of the project directory.
+Include the GCP region, zone, and service account key JSON string that you downloaded from GCP. Also include the AWS region and your Access and Secret Keys.
 
-### [_future - not used right now_]
-You must have valid SSH keys in order to remotely access the test VMs in each cloud.
+**DO NOT SHARE THIS FILE** unless you want an extremely high credit card bill next month.
 
-Begin by creating a new SSH key pair. We'll call this one terraform.
+```gcp_project = "your-gcp-project-id"
+gcp_region = "us-central1"
+gcp_zones = ["us-central1-a", "us-central1-b", "us-central1-c"]
+service_account_key = <<SERVICE_ACCOUNT_KEY
+{
+  "type": "service_account",
+  "project_id": "your-gcp-project-id",
+  "private_key_id": "another-gcp-private-key",
+  "private_key": "-----BEGIN PRIVATE KEY-----another gcp private key-----END PRIVATE KEY-----\n",
+  "client_email": "me@example.com",
+  "client_id": "11111111111111",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/"
+}
+SERVICE_ACCOUNT_KEY
 
+aws_region = "us-west-2"
+aws_access_key = "your-aws-access-key"
+aws_secret_key = "your-aws-secret-key"
 ```
-$ ssh-keygen
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/myuser/.ssh/id_rsa): /Users/myuser/.ssh/terraform
-```
 
 
+### Building the AWS to GCP VPN connection
 
-## Building the AWS to GCP VPN connection
-
-Clone the repo to your server and execute terraform.
-
-```
-$ git clone git@github.com:trace3-cts/vpn-terraform.git
-$ cd vpn-terraform
-$ terraform apply
-```
+Execute `terraform apply` to create the environment. In about five minutes you should
+have a working VPN connection between your two clouds.
