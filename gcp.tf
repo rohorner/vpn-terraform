@@ -1,6 +1,6 @@
 # Set up GCP environment definitions
 provider "google" {
-  account_file = "${file("~/gce/account.json")}"
+  credentials = "${file("~/gce/account.json")}"
   project      = "${var.gcp_project}"
   region       = "${var.gcp_region}"
 }
