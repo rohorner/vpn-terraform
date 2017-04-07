@@ -25,6 +25,15 @@ $ export AWS_ACCESS_KEY_ID=[your 20-character AWS access key]
 $ export AWS_SECRET_KEY=[your 40-character AWS secret key]
 ```
 ### Set up your GCP credentials
+If you haven't already, download your GCP credentials JSON file:
+
+In the GCP Console, select the "IAM & Admin" menu item, then "Service Accounts".
+To the right of the service account that you wish to use, pull down the options
+menu and select "Create Key". Select "JSON" as the Key Type and hit "CREATE". GCP will
+create the file and automatically download it to your computer.
+
+Store the downloaded file as `~/gce/account.json`.
+
 
 
 ## Building the AWS to GCP VPN connection
