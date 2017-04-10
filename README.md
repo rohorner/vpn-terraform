@@ -1,9 +1,7 @@
 # vpn-terraform
 Terraform code to build VPNs between VSphere, AWS, and GCP.
 
-Currently only the AWS-GCP VPN code is working.
-
-***This README is currently missing a lot of info. Ping Rob if you want detailed instructions or a walkthrough on how to use it.***
+**Currently only the AWS-GCP VPN code is working.**
 
 ## Getting Started
 
