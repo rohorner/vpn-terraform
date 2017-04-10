@@ -55,4 +55,17 @@ aws_secret_key = "your-aws-secret-key"
 ### Building the AWS to GCP VPN connection
 
 Execute `terraform apply` to create the environment. In about five minutes you should
-have a working VPN connection between your two clouds.
+have a working VPN connection between your two clouds. Once complete, TF will output the following information:
+```
+Outputs:
+
+AWS Test VM address = <IPv4 of the AWS test VM>
+AWS Tunnel 1 Endpoint = <IPv4 of the AWS tunnel endpoint>
+AWS region = <AWS region of the VPC>
+AWS subnet = <AWS VPN subnetwork CIDR where the VPN terminates>
+
+GCP Tunnel Endpoint = <IPv4 of the GCP tunnel endpoint>
+GCP VPN Tunnel Shared Secret = <shared secret, aka, preshared key of the IPSec tunnel>
+GCP region = <GCP region of the network>
+GCP subnet = <GCP network CIDR where the VPN terminates>
+```

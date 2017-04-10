@@ -6,12 +6,8 @@ output "GCP subnet" {
   value = "${google_compute_subnetwork.tf-subnet.ip_cidr_range}"
 }
 
-output "GCP VPN Gateway Endpoint" {
+output "GCP Tunnel Endpoint" {
   value = "${google_compute_address.vpn-static-ip1.address}"
-}
-
-output "GCP VPN Tunnel peer ip" {
-  value = "${google_compute_vpn_tunnel.tunnel-to-aws.peer_ip}"
 }
 
 output "GCP VPN Tunnel Shared Secret" {
@@ -23,7 +19,7 @@ output "GCP region" {
 }
 
 output "GCP Test VM Address" {
-  value = "${google_compute_instance.vpn-test-vm.network_interface.}"
+  value = "${google_compute_instance.vpn-test-vm.network_interface.0.access_config.0.assigned_nat_ip}"
 }
 
 
@@ -39,8 +35,8 @@ output "AWS region" {
   value = "${var.aws_region}"
 }
 
-output "AWS Customer Gateway" {
-  value = "${aws_customer_gateway.gcp_gateway.ip_address}"
+output "AWS Tunnel 1 Endpoint" {
+  value = "${aws_vpn_connection.gcp-vpn-connection.tunnel1_address}"
 }
 
 output "AWS Test VM address" {

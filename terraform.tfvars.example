@@ -1,5 +1,5 @@
 # GCP environment
-gcp_project = "your-gcp-project-id"
+gcp_project = "<your-gcp-project-id>"
 gcp_region = "us-central1"
 gcp_zones = ["us-central1-a", "us-central1-b", "us-central1-c"]
 service_account_key = <<SERVICE_ACCOUNT_KEY
@@ -19,5 +19,9 @@ SERVICE_ACCOUNT_KEY
 
 # AWS environment
 aws_region = "us-west-2"
-aws_access_key = "your-aws-access-key"
-aws_secret_key = "your-aws-secret-key"
+aws_access_key = "<your-aws-access-key>"
+aws_secret_key = "<your-aws-secret-key>"
+
+# Key Pair for test VMs
+aws_instance_public_key = "<public key string>"
+aws_keypair_name = "<name of keypair to create>"
