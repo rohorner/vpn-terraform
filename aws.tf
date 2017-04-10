@@ -13,6 +13,7 @@ resource "aws_subnet" "demo-vpn-subnet" {
 
   cidr_block = "10.1.1.0/24"
   vpc_id = "${aws_vpc.demo-vpc.id}"
+  map_public_ip_on_launch = true
 }
 
 # Attach an Internet Gateway to the VPC
@@ -77,13 +78,13 @@ resource "aws_route" "default" {
   gateway_id = "${aws_internet_gateway.demo-vpc-igw.id}"
 }
 
-resource "aws_route_table" "default" {
-  vpc_id = "${aws_vpc.demo-vpc.main_route_table_id}"
-
-  propagating_vgws = ["${aws_vpn_gateway.demo-vpn-gw.id}"]
-
-  tags {
-    Name = "demo-route-table"
-    Terraform = "true"
-  }
-}
+//resource "aws_route_table" "default" {
+//  vpc_id = "${aws_vpc.demo-vpc.main_route_table_id}"
+//
+//  propagating_vgws = ["${aws_vpn_gateway.demo-vpn-gw.id}"]
+//
+//  tags {
+//    Name = "demo-route-table"
+//    Terraform = "true"
+//  }
+//}
