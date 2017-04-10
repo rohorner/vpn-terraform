@@ -11,15 +11,19 @@ output "GCP VPN Gateway Endpoint" {
 }
 
 output "GCP VPN Tunnel peer ip" {
-  value = "${google_compute_vpn_tunnel.tunnel1.peer_ip}"
+  value = "${google_compute_vpn_tunnel.tunnel-to-aws.peer_ip}"
 }
 
 output "GCP VPN Tunnel Shared Secret" {
-  value = "${google_compute_vpn_tunnel.tunnel1.shared_secret}"
+  value = "${google_compute_vpn_tunnel.tunnel-to-aws.shared_secret}"
 }
 
 output "GCP region" {
   value = "${var.gcp_region}"
+}
+
+output "GCP Test VM Address" {
+  value = "${google_compute_instance.vpn-test-vm.network_interface.}"
 }
 
 
@@ -37,4 +41,8 @@ output "AWS region" {
 
 output "AWS Customer Gateway" {
   value = "${aws_customer_gateway.gcp_gateway.ip_address}"
+}
+
+output "AWS Test VM address" {
+  value = "${aws_instance.vpn-test-vm.public_ip}"
 }

@@ -25,3 +25,11 @@ variable "aws_access_key" {
 variable "aws_secret_key" {
   description = "Your 40-character AWS Secret Key"
 }
+
+variable "aws_instance_public_key" {
+  description = "Public Key Pair string"
+}
+
+variable "aws_keypair_name" {
+  description = "Name of the key pair to create for VM access"
+}
