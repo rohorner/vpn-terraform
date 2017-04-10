@@ -51,7 +51,7 @@ resource "google_compute_forwarding_rule" "fr_udp4500" {
 }
 
 # Define the VPN tunnel to AWS. Include the local address range that should be sent toward the tunnel.
-resource "google_compute_vpn_tunnel" "tunnel1" {
+resource "google_compute_vpn_tunnel" "tunnel-to-aws" {
   name               = "tunnel1"
   region             = "${var.gcp_region}"
   peer_ip            = "${aws_vpn_connection.gcp-vpn-connection.tunnel1_address}"
@@ -74,5 +74,40 @@ resource "google_compute_route" "route-to-aws" {
   dest_range = "${aws_subnet.demo-vpn-subnet.cidr_block}"
   priority   = 1000
 
-  next_hop_vpn_tunnel = "${google_compute_vpn_tunnel.tunnel1.self_link}"
+  next_hop_vpn_tunnel = "${google_compute_vpn_tunnel.tunnel-to-aws.self_link}"
+}
+
+resource "google_compute_firewall" "allow-all-over-vpn" {
+  name = "allow-all-over-vpn"
+  network = "${google_compute_network.tfnetwork.id}"
+
+  allow {
+    protocol = "tcp"
+    ports = ["0-65535"]
+  }
+
+  allow {
+    protocol = "udp"
+    ports = ["0-65535"]
+  }
+
+  allow {
+    protocol = "icmp"
+  }
+
+  source_ranges = ["${aws_subnet.demo-vpn-subnet.cidr_block}"]
+}
+
+resource "google_compute_firewall" "allow-inbound-ssh-icmp" {
+  name = "allow-inbound-ssh-icmp"
+  network = "${google_compute_network.tfnetwork.id}"
+
+  allow {
+    protocol = "tcp"
+    ports = ["22"]
+  }
+
+  allow {
+    protocol = "icmp"
+  }
 }
