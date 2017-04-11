@@ -25,3 +25,6 @@ aws_secret_key = "<your-aws-secret-key>"
 # Key Pair for test VMs
 aws_instance_public_key = "<public key string>"
 aws_keypair_name = "<name of keypair to create>"
+
+# Project-wide variables
+project_tag = "<project name to tag on all resources>"

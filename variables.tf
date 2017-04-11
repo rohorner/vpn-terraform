@@ -33,3 +33,7 @@ variable "aws_instance_public_key" {
 variable "aws_keypair_name" {
   description = "Name of the key pair to create for VM access"
 }
+
+variable "project_tag" {
+  description = "Name of the project to tag on each resource"
+}
