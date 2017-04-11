@@ -76,22 +76,6 @@ resource "aws_vpn_connection_route" "route-to-gcp" {
   vpn_connection_id = "${aws_vpn_connection.gcp-vpn-connection.id}"
 }
 
-//# Update the VPC routing table with a next hop to the VPN tunnel
-//resource "aws_route" "route-to-gcp" {
-//
-//  route_table_id = "${aws_vpc.demo-vpc.main_route_table_id}"
-//  destination_cidr_block = "${google_compute_subnetwork.tf-subnet.ip_cidr_range}"
-//  gateway_id = "${aws_vpn_gateway.demo-vpn-gw.id}"
-//}
-//
-//#Update the VPC routing table with a default route
-//resource "aws_route" "default" {
-//
-//  route_table_id = "${aws_vpc.demo-vpc.main_route_table_id}"
-//  destination_cidr_block = "0.0.0.0/0"
-//  gateway_id = "${aws_internet_gateway.demo-vpc-igw.id}"
-//}
-
 resource "aws_route_table" "demo-route-table" {
   vpc_id = "${aws_vpc.demo-vpc.id}"
 
