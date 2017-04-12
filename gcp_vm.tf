@@ -23,7 +23,7 @@ resource "google_compute_instance" "vpn-test-vm" {
     sshKeys = "ubuntu:${file("~/.ssh/google_compute_engine.pub")}"
    }
 
-  tags = ["evolve"]
+  tags = ["${var.project_tag}"]
 }
 
 resource "google_compute_firewall" "ssh" {
