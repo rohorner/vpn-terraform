@@ -10,16 +10,15 @@ output "GCP Tunnel Endpoint" {
   value = "${google_compute_address.vpn-static-ip1.address}"
 }
 
-output "GCP VPN Tunnel Shared Secret" {
-  value = "${google_compute_vpn_tunnel.tunnel-to-aws.shared_secret}"
-}
-
 output "GCP region" {
   value = "${var.gcp_region}"
 }
 
 output "GCP Test VM Address" {
-  value = "${google_compute_instance.vpn-test-vm.network_interface.0.access_config.0.assigned_nat_ip}"
+  value = [
+    "${google_compute_instance.vpn-test-vm.network_interface.0.access_config.0.assigned_nat_ip}",
+    "${google_compute_instance.vpn-test-vm.network_interface.0.address}"
+  ]
 }
 
 
@@ -40,5 +39,13 @@ output "AWS Tunnel 1 Endpoint" {
 }
 
 output "AWS Test VM address" {
-  value = "${aws_instance.vpn-test-vm.public_ip}"
+  value = [
+    "${aws_instance.vpn-test-vm.public_ip}",
+    "${aws_instance.vpn-test-vm.private_ip}"
+  ]
 }
+
+output "VPN Tunnel Shared Secret: GCP-AWS" {
+  value = "${google_compute_vpn_tunnel.tunnel-to-aws.shared_secret}"
+}
+

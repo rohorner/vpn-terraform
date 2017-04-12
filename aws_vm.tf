@@ -17,6 +17,13 @@ resource "aws_instance" "vpn-test-vm" {
   vpc_security_group_ids = ["${aws_security_group.allow_all_from_gcp.id}", "${aws_security_group.allow_inbound_ssh_and_icmp.id}"]
   associate_public_ip_address = true
   key_name = "${aws_key_pair.auth.key_name}"
+
+  tags {
+    Name = "demo-test-vm"
+    Terraform = "yes"
+    Project = "${var.project_tag}"
+  }
+
 }
 
 resource "aws_security_group" "allow_all_from_gcp" {
@@ -38,6 +45,13 @@ resource "aws_security_group" "allow_all_from_gcp" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags {
+    Name = "demo-sg-allow-all-from-gcp"
+    Terraform = "yes"
+    Project = "${var.project_tag}"
+  }
+
 }
 
 resource "aws_security_group" "allow_inbound_ssh_and_icmp" {
@@ -65,6 +79,12 @@ resource "aws_security_group" "allow_inbound_ssh_and_icmp" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "demo-allow-ssh-and-imcp"
+    Terraform = "yes"
+    Project = "${var.project_tag}"
   }
 
 }
