@@ -49,3 +49,6 @@ output "VPN Tunnel Shared Secret: GCP-AWS" {
   value = "${google_compute_vpn_tunnel.tunnel-to-aws.shared_secret}"
 }
 
+output "AWS tunnel inside address" {
+  value ="${aws_vpn_connection.gcp-vpn-connection.tunnel1_vgw_inside_address}"
+}

@@ -35,7 +35,7 @@ resource "aws_internet_gateway" "demo-vpc-igw" {
 # Create a Customer Gateway using the GCP data
 resource "aws_customer_gateway" "gcp_gateway" {
 
-  bgp_asn     = 65000
+  bgp_asn     = "${var.gcp_bgp_asn}"
   ip_address  = "${google_compute_address.vpn-static-ip1.address}"
   type        = "ipsec.1"
 
@@ -62,8 +62,8 @@ resource "aws_vpn_connection" "gcp-vpn-connection" {
 
   customer_gateway_id = "${aws_customer_gateway.gcp_gateway.id}"
   type                = "ipsec.1"
-  static_routes_only  = true
   vpn_gateway_id      = "${aws_vpn_gateway.demo-vpn-gw.id}"
+  static_routes_only  = false
 
   tags {
     Name = "demo-gcp-vpn-connection"
@@ -71,10 +71,6 @@ resource "aws_vpn_connection" "gcp-vpn-connection" {
   }
 }
 
-resource "aws_vpn_connection_route" "route-to-gcp" {
-  destination_cidr_block = "${google_compute_subnetwork.tf-subnet.ip_cidr_range}"
-  vpn_connection_id = "${aws_vpn_connection.gcp-vpn-connection.id}"
-}
 
 resource "aws_route_table" "demo-route-table" {
   vpc_id = "${aws_vpc.demo-vpc.id}"

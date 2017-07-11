@@ -12,6 +12,10 @@ variable "gcp_service_account_key" {
   description = "The JSON service account string"
 }
 
+variable "gcp_bgp_asn" {
+  description = "The BGP ASN of the Google Cloud Router"
+}
+
 # AWS variables
 
 variable "aws_region" {
@@ -32,6 +36,10 @@ variable "aws_instance_public_key" {
 
 variable "aws_keypair_name" {
   description = "Name of the key pair to create for VM access"
+}
+
+variable "aws_bgp_asn" {
+  description = "The BGP ASN of the AWS VPN Gateway"
 }
 
 variable "project_tag" {

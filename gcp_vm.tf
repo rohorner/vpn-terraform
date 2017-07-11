@@ -28,7 +28,7 @@ resource "google_compute_instance" "vpn-test-vm" {
 
 resource "google_compute_firewall" "ssh" {
   name = "tf-ssh-rule"
-  network = "${google_compute_network.tfnetwork.id}"
+  network = "${google_compute_network.tf-network.id}"
   description = "Allow SSH from anywhere"
 
   allow {
