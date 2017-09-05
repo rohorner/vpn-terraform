@@ -45,10 +45,16 @@ output "AWS Test VM address" {
   ]
 }
 
-output "VPN Tunnel Shared Secret: GCP-AWS" {
-  value = "${google_compute_vpn_tunnel.tunnel-to-aws.shared_secret}"
+output "VPN Tunnel Shared Secrets: GCP-AWS" {
+  value = [
+    "${google_compute_vpn_tunnel.tunnel1-to-aws.shared_secret}",
+    "${google_compute_vpn_tunnel.tunnel2-to-aws.shared_secret}",
+  ]
 }
 
-output "AWS tunnel inside address" {
-  value ="${aws_vpn_connection.gcp-vpn-connection.tunnel1_vgw_inside_address}"
+output "AWS tunnel inside addresses" {
+  value = [
+    "${aws_vpn_connection.gcp-vpn-connection.tunnel1_vgw_inside_address}",
+    "${aws_vpn_connection.gcp-vpn-connection.tunnel2_vgw_inside_address}"
+  ]
 }
