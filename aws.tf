@@ -10,9 +10,20 @@ resource "aws_vpc" "demo-vpc" {
 }
 
 # Create a subnet in the VPC
-resource "aws_subnet" "demo-vpn-subnet" {
+resource "aws_subnet" "subnet-10-1-1" {
 
   cidr_block = "10.1.1.0/24"
+  vpc_id = "${aws_vpc.demo-vpc.id}"
+  map_public_ip_on_launch = true
+
+  tags {
+        Project = "${var.project_tag}"
+  }
+}
+# Create a subnet in the VPC
+resource "aws_subnet" "subnet-10-1-2" {
+
+  cidr_block = "10.1.2.0/24"
   vpc_id = "${aws_vpc.demo-vpc.id}"
   map_public_ip_on_launch = true
 
@@ -71,8 +82,13 @@ resource "aws_vpn_connection" "gcp-vpn-connection" {
   }
 }
 
-resource "aws_vpn_connection_route" "route-to-gcp" {
-  destination_cidr_block = "${google_compute_subnetwork.tf-subnet.ip_cidr_range}"
+resource "aws_vpn_connection_route" "route-to-gcp-10-2-1" {
+  destination_cidr_block = "${google_compute_subnetwork.gcp-subnet-10-10-0.ip_cidr_range}"
+  vpn_connection_id = "${aws_vpn_connection.gcp-vpn-connection.id}"
+}
+
+resource "aws_vpn_connection_route" "route-to-gcp-10-2-2" {
+  destination_cidr_block = "${google_compute_subnetwork.gcp-subnet-10-100-0.ip_cidr_range}"
   vpn_connection_id = "${aws_vpn_connection.gcp-vpn-connection.id}"
 }
 

@@ -8,22 +8,38 @@ resource "aws_key_pair" "auth" {
   public_key = "${var.aws_instance_public_key}"
 }
 
-resource "aws_instance" "vpn-test-vm" {
+resource "aws_instance" "vpn-test-vm-subnet-10-1-1" {
 
   ami = "ami-8ca83fec"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.demo-vpn-subnet.id}"
+  subnet_id = "${aws_subnet.subnet-10-1-1.id}"
 
   vpc_security_group_ids = ["${aws_security_group.allow_all_from_gcp.id}", "${aws_security_group.allow_inbound_ssh_and_icmp.id}"]
   associate_public_ip_address = true
   key_name = "${aws_key_pair.auth.key_name}"
 
   tags {
-    Name = "demo-test-vm"
+    Name = "test-vm-subnet-10-1-1"
     Terraform = "yes"
     Project = "${var.project_tag}"
   }
+}
 
+resource "aws_instance" "vpn-test-vm-subnet-10-1-2" {
+
+  ami = "ami-8ca83fec"
+  instance_type = "t2.micro"
+  subnet_id = "${aws_subnet.subnet-10-1-2.id}"
+
+  vpc_security_group_ids = ["${aws_security_group.allow_all_from_gcp.id}", "${aws_security_group.allow_inbound_ssh_and_icmp.id}"]
+  associate_public_ip_address = true
+  key_name = "${aws_key_pair.auth.key_name}"
+
+  tags {
+    Name = "test-vm-subnet-10-1-2"
+    Terraform = "yes"
+    Project = "${var.project_tag}"
+  }
 }
 
 resource "aws_security_group" "allow_all_from_gcp" {
@@ -35,7 +51,10 @@ resource "aws_security_group" "allow_all_from_gcp" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["${google_compute_subnetwork.tf-subnet.ip_cidr_range}"]
+    cidr_blocks = [
+      "${google_compute_subnetwork.gcp-subnet-10-10-0.ip_cidr_range}",
+      "${google_compute_subnetwork.gcp-subnet-10-100-0.ip_cidr_range}"
+    ]
   }
 
   # open outbound access

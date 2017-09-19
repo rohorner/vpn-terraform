@@ -37,3 +37,8 @@ variable "aws_keypair_name" {
 variable "project_tag" {
   description = "Name of the project to tag on each resource"
 }
+
+variable "profile" {
+  description = "The AWS profile to use from .aws/credentials"
+  default = "default"
+}
