@@ -22,13 +22,13 @@ variable "aws_region" {
   description = "The AWS region to deploy into"
 }
 
-variable "aws_access_key" {
-  description = "Your 20-character AWS Access Key"
-}
-
-variable "aws_secret_key" {
-  description = "Your 40-character AWS Secret Key"
-}
+//variable "aws_access_key" {
+//  description = "Your 20-character AWS Access Key"
+//}
+//
+//variable "aws_secret_key" {
+//  description = "Your 40-character AWS Secret Key"
+//}
 
 variable "aws_instance_public_key" {
   description = "Public Key Pair string"
