@@ -14,6 +14,10 @@ variable "gcp_service_account_key" {
 
 # AWS variables
 
+variable "shared_credentials_file" {
+  default = "/Users/rhorner/.aws/credentials"
+}
+
 variable "aws_region" {
   description = "The AWS region to deploy into"
 }
