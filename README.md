@@ -45,10 +45,9 @@ service_account_key = <<SERVICE_ACCOUNT_KEY
 SERVICE_ACCOUNT_KEY
 
 aws_region = "us-west-2"
-aws_access_key = "your-aws-access-key"
-aws_secret_key = "your-aws-secret-key"
 ```
 
+Update variable default "shared_credentials_file" in variables.tf to point to your local AWS credentials file. On Mac this is usually located at /Users/[username]/.aws/credentials
 
 ### Building the AWS to GCP VPN connection
 
