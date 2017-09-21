@@ -65,7 +65,7 @@ resource "google_compute_firewall" "ssh" {
 
 resource "google_compute_firewall" "vpn" {
   name = "tf-vpn-firewall"
-  network = "default"
+  network = "${google_compute_network.gcp-network.id}"
   description = "Allow all traffic over VPN"
 
   allow {
