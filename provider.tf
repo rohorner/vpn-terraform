@@ -6,9 +6,9 @@ provider "google" {
   region       = "${var.gcp_region}"
 }
 
-# Set up AWS environment
+# Provider Settings
 provider "aws" {
-  region     = "${var.aws_region}"
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
+  shared_credentials_file = "${var.shared_credentials_file}"
+  region                  = "${var.aws_region}"
+  profile                 = "${var.profile}"
 }
