@@ -9,7 +9,7 @@ Terraform code to build VPNs between VSphere, AWS, and GCP.
 Clone the repo to your server.
 
 ```
-$ git clone git@github.com:trace3-cts/vpn-terraform.git
+$ git clone git@github.com:rohorner/vpn-terraform.git
 $ cd vpn-terraform
 ```
 
